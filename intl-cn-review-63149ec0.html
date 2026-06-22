@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界杯 · 持续关注的站点</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f5f0eb;
+            font-family: 'Georgia', 'Times New Roman', 'Noto Serif SC', serif;
+            color: #2c2a28;
+            line-height: 1.7;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page {
+            max-width: 820px;
+            width: 100%;
+            background: #fcf9f5;
+            border-radius: 28px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04), 0 1px 6px rgba(0,0,0,0.02);
+            padding: 2.8rem 2.4rem;
+            transition: all 0.25s ease;
+        }
+        @media (max-width: 600px) {
+            body { padding: 1rem 0.8rem; }
+            .page { padding: 1.8rem 1.2rem; border-radius: 20px; }
+        }
+
+        /* hero 区域 —— 柔和标题 & 时间感 */
+        .hero {
+            margin-bottom: 2.4rem;
+            border-bottom: 1px solid #e1d9d1;
+            padding-bottom: 1.8rem;
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #2e2a25;
+            margin-bottom: 0.4rem;
+            line-height: 1.2;
+        }
+        .hero .subhead {
+            font-size: 1.05rem;
+            color: #6b625a;
+            border-left: 3px solid #d4c9bd;
+            padding-left: 1rem;
+            margin-top: 0.4rem;
+            font-style: italic;
+        }
+
+        /* 文章排版 */
+        .content p {
+            margin: 1.2rem 0;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+        .content p:first-of-type {
+            margin-top: 0.2rem;
+        }
+
+        /* 引用块 / 提示框 */
+        .insight-box {
+            background: #efe9e2;
+            border-left: 5px solid #b7aa9c;
+            padding: 1.2rem 1.6rem;
+            margin: 2rem 0 1.8rem 0;
+            border-radius: 0 12px 12px 0;
+            color: #3e3832;
+            font-size: 0.98rem;
+        }
+        .insight-box strong {
+            font-weight: 600;
+            color: #524a42;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .insight-box i {
+            font-style: normal;
+            background: #dbd1c7;
+            padding: 0.05rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        /* 亮点卡片网格 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.6rem 1.8rem;
+            margin: 2rem 0 1.6rem 0;
+        }
+        .feature-card {
+            background: #f7f2ed;
+            padding: 1.2rem 1.2rem 1rem 1.5rem;
+            border-radius: 18px;
+            transition: background 0.2s;
+        }
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            color: #3b342e;
+            margin-bottom: 0.3rem;
+            border-bottom: 1px dashed #d6ccc1;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+        }
+        .feature-card p {
+            font-size: 0.95rem;
+            margin: 0.5rem 0 0 0;
+            color: #4e4740;
+        }
+        @media (max-width: 550px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* 使用场景——简单列表 */
+        .scenario-list {
+            margin: 1.8rem 0 1.2rem 0;
+            padding-left: 0.4rem;
+        }
+        .scenario-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.7rem;
+            margin: 0.8rem 0;
+            font-size: 1rem;
+        }
+        .scenario-item .marker {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #bfb0a1;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+
+        /* faq 摘要 */
+        .faq-mini {
+            background: #f3ede7;
+            padding: 1.4rem 1.6rem;
+            border-radius: 20px;
+            margin: 2rem 0 1.2rem 0;
+        }
+        .faq-mini h4 {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #423b34;
+            margin-bottom: 0.8rem;
+        }
+        .faq-mini details {
+            margin: 0.6rem 0;
+            border-bottom: 1px solid #e4dbd2;
+            padding-bottom: 0.5rem;
+        }
+        .faq-mini details:last-of-type {
+            border-bottom: none;
+        }
+        .faq-mini summary {
+            cursor: pointer;
+            font-weight: 500;
+            color: #534b43;
+            font-size: 0.98rem;
+            list-style: disclosure-closed inside;
+        }
+        .faq-mini summary::-webkit-details-marker {
+            color: #b3a394;
+        }
+        .faq-mini details[open] summary {
+            list-style: disclosure-open inside;
+        }
+        .faq-mini .answer {
+            padding: 0.5rem 0 0.2rem 1.2rem;
+            font-size: 0.93rem;
+            color: #4d453e;
+        }
+
+        /* 链接风格 */
+        a {
+            color: #7f6c5a;
+            text-decoration: none;
+            border-bottom: 1px solid #d2c4b6;
+            transition: border-color 0.2s, color 0.2s;
+            font-weight: 400;
+        }
+        a:hover {
+            color: #4d3f33;
+            border-bottom-color: #7f6c5a;
+        }
+
+        /* 收藏提示 */
+        .bookmark-note {
+            margin: 1.8rem 0 0.5rem 0;
+            background: #fff8f2;
+            border: 1px solid #e2d6cb;
+            padding: 1rem 1.4rem;
+            border-radius: 40px 16px 16px 40px;
+            font-size: 0.95rem;
+            color: #49413a;
+            text-align: center;
+        }
+        .bookmark-note span {
+            background: #e0d4c8;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #3b332c;
+            margin-right: 0.3rem;
+        }
+
+        footer {
+            margin-top: 2.6rem;
+            font-size: 0.8rem;
+            color: #988e85;
+            border-top: 1px solid #e6ddd4;
+            padding-top: 1.2rem;
+            text-align: center;
+            letter-spacing: 0.2px;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- hero -->
+    <div class="hero">
+        <h1>世界杯 · 再次停留</h1>
+        <div class="subhead">收藏一个站点，如同记住一届赛事——慢慢翻开，总有余温。</div>
+    </div>
+
+    <!-- 正文内容 -->
+    <div class="content">
+        <p>
+            有些页面你不止一次打开，不是因为需要反复确认什么，而是它恰好安放在你习惯的位置。<strong>intl-cn-fifaworldcup.com</strong> 便是这样一个角落——它不喧哗，不催促，只是安静地承载着关于<a href="https://intl-cn-fifaworldcup.com">世界杯</a>的脉络与记忆。无论你是在赛程密集的深夜，还是某个平淡的午后想起某场经典，它都值得你再次点开。
+        </p>
+        <p>
+            这里没有浮夸的倒计时，也没有弹窗提醒你“错过即遗憾”。页面更愿意把选择权交还给你：当你愿意靠近，它便呈现。无论你是想重温往届的赛果，还是关注下一届的筹备节奏，它都像一个老朋友，把信息整理得妥帖，等你来翻阅。
+        </p>
+    </div>
+
+    <!-- 提示框：持续关注的视角 -->
+    <div class="insight-box">
+        <strong>📌 再次访问的理由</strong>
+        收藏夹里的站点来来去去，但总有几个你舍不得删除。<i>intl-cn-fifaworldcup.com</i> 适合那种“不一定天天看，但想到时总在”的感觉。把链接放在书签栏，下次想聊<a href="https://intl-cn-fifaworldcup.com">世界杯</a>时，不必从头搜索。
+    </div>
+
+    <!-- 亮点卡片 -->
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>📋 信息克制</h3>
+            <p>没有过载的弹窗或自动播放，页面结构偏重阅读质感，让你专注于内容本身。</p>
+        </div>
+        <div class="feature-card">
+            <h3>📆 适应节奏</h3>
+            <p>赛时和非赛时的内容呈现有所区别，不会给你“永远在倒计时”的压迫感。</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔖 收藏友好</h3>
+            <p>页面 URL 稳定，不会随意跳转或失效，适合长期放在收藏夹或笔记里。</p>
+        </div>
+        <div class="feature-card">
+            <h3>🧩 轻量结构</h3>
+            <p>不堆砌组件，核心信息一目了然。无论是手机还是桌面，排版都保持干净。</p>
+        </div>
+    </div>
+
+    <!-- 使用建议 / 场景 -->
+    <div class="scenario-list">
+        <div class="scenario-item">
+            <span class="marker"></span>
+            <span><strong>日常关注：</strong> 每隔几周打开一次，看看有没有新的内容更新或文章，不必每日盯屏。</span>
+        </div>
+        <div class="scenario-item">
+            <span class="marker"></span>
+            <span><strong>赛前重温：</strong> 大赛前翻阅历史记录或背景文章，找回看球的情绪和记忆。</span>
+        </div>
+        <div class="scenario-item">
+            <span class="marker"></span>
+            <span><strong>分享给同好：</strong> 直接把 <a href="https://intl-cn-fifaworldcup.com">世界杯</a> 这个链接发给朋友，简单直接，不用拼凑第二份介绍。</span>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+        <h4>❓ 常见疑问摘要</h4>
+        <details>
+            <summary>这个站点会频繁改版吗？</summary>
+            <div class="answer">目前以稳定为主，结构不会频繁大改。内容会随赛事周期适度更新，但页面核心体验保持一致。</div>
+        </details>
+        <details>
+            <summary>需要注册或登录才能使用吗？</summary>
+            <div class="answer">完全不需要。这是一个开放的页面，直接打开即可浏览所有内容，没有任何账户门槛。</div>
+        </details>
+        <details>
+            <summary>我能在手机上获得同样体验吗？</summary>
+            <div class="answer">可以。页面针对手机和窄屏做了适配，字体大小、间距和卡片布局都会自动调整。</div>
+        </details>
+    </div>
+
+    <!-- 收藏提示 -->
+    <div class="bookmark-note">
+        <span>🔖 建议</span>
+        如果你觉得以后还会用到，现在就可以把它加入浏览器书签。一个<a href="https://intl-cn-fifaworldcup.com">世界杯</a>的入口，安静地躺在收藏夹里，随时等你回来。
+    </div>
+
+    <footer>
+        保持关注 · 不必时时在线 —— 世界杯的余韵，值得慢慢回味。
+    </footer>
+
+</div>
+</body>
+</html>
